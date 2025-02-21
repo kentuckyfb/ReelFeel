@@ -7,6 +7,17 @@ export default {
   ],
   theme: {
     extend: {
+
+      backgroundColor: {
+        'glass': 'rgba(255, 255, 255, 0.1)',
+      },
+      backdropBlur: {
+        'glass': '10px',
+      },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+      },
+
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
