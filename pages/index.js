@@ -136,53 +136,68 @@ export default function Home({ theme, darkMode, setDarkMode }) {
 
   return (
     <motion.div
-      className={`max-w-lg w-full p-4 md:p-8 rounded-3xl border shadow-lg mx-4`} // Adjusted padding and margin
-      style={{ backgroundColor: theme.background, color: 'white', borderColor: theme.secondary }}
+      className="max-w-lg w-full p-4 md:p-8 rounded-3xl border shadow-vercel dark:shadow-vercel-dark mx-4 glass"
+      style={{ 
+        backgroundColor: theme.background + '80',
+        color: theme.text,
+        borderColor: theme.border,
+        backdropFilter: 'blur(10px)',
+      }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
     >
       <Head>
         <title>ReelFeel</title>
         <meta name="description" content="Find movies based on your mood!" />
       </Head>
-      <h1
-        className="text-xl md:text-2xl font-semibold mb-6 md:mb-8" // Adjusted font size for smaller screens
+      <motion.h1
+        className="text-xl md:text-2xl font-semibold mb-6 md:mb-8"
         style={{
-          backgroundImage: `linear-gradient(to right, ${theme.accent}, ${theme.secondary})`,
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          textShadow: `1px 1px 2px ${theme.secondary}`,
+          color: theme.text,
         }}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
       >
         <Film size={24} className="inline-block mr-2" /> Because 'I want a movie' is a terrible search term.
-      </h1>
-      <div className="flex flex-col md:flex-row items-center mb-6 gap-4"> {/* Stack vertically on small screens */}
+      </motion.h1>
+      <motion.div 
+        className="flex flex-col md:flex-row items-center mb-6 gap-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+      >
         <input
           type="text"
           placeholder="Describe the mood you're in..."
           value={mood}
           onChange={(e) => setMood(e.target.value)}
-          className={`w-full p-3 md:p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-${theme.accent} border`}
+          className="input w-full glow-border"
           style={{
-            backgroundColor: theme.secondary,
-            color: 'white',
-            borderColor: theme.secondary,
+            backgroundColor: theme.secondary + '80',
+            color: theme.text,
+            borderColor: theme.border,
+            backdropFilter: 'blur(10px)',
           }}
         />
         <motion.button
           onClick={getRecommendation}
-          whileHover={{ scale: 1.1, boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.3)" }}
-          whileTap={{ scale: 0.9 }}
-          className={`p-3 md:p-4 rounded-xl flex items-center justify-center shadow-md w-full md:w-auto`} // Full width on small screens
-          style={{ backgroundColor: theme.accent, color: 'white' }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="btn btn-primary w-full md:w-auto glow-border"
         >
           <Search size={24} />
         </motion.button>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-8"> {/* Stack vertically on small screens */}
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+      >
         <Dropdown
           label="Select Year"
           value={year}
@@ -227,16 +242,22 @@ export default function Home({ theme, darkMode, setDarkMode }) {
           theme={theme}
           icon={<Globe size={16} />}
         />
-      </div>
+      </motion.div>
 
       {loading && (
-        <div className="text-center mt-8">
+        <motion.div 
+          className="text-center mt-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           <svg className="animate-spin h-12 w-12" style={{ color: theme.accent }} viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
           </svg>
-          <p className="mt-2" style={{ color: 'white' }}>Searching...</p>
-        </div>
+          <p className="mt-2" style={{ color: theme.text }}>Searching...</p>
+        </motion.div>
       )}
 
       <AnimatePresence>
@@ -246,21 +267,25 @@ export default function Home({ theme, darkMode, setDarkMode }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
           >
             {movie.map((m, index) => (
               <motion.div
                 key={index}
-                className={`p-4 md:p-6 rounded-2xl border`} // Adjusted padding
+                className="card hover-effect glass"
                 style={{
-                  backgroundColor: theme.secondary,
-                  color: 'white',
-                  borderColor: theme.secondary,
+                  backgroundColor: theme.secondary + '80',
+                  color: theme.text,
+                  borderColor: theme.border,
+                  backdropFilter: 'blur(10px)',
                 }}
-                whileHover={{ scale: 1.03 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                whileHover={{ scale: 1.02 }}
               >
-                <h2 className="text-xl md:text-2xl font-semibold mb-3">{m.name}</h2> {/* Adjusted font size */}
-                <p className="text-sm md:text-md mb-2" style={{ color: 'white' }}>{m.description}</p> {/* Adjusted font size */}
+                <h2 className="text-xl md:text-2xl font-semibold mb-3">{m.name}</h2>
+                <p className="text-sm md:text-md mb-2" style={{ color: theme.text }}>{m.description}</p>
                 <div className="grid grid-cols-2 gap-4">
                   <p className="text-sm md:text-md font-medium"><Film size={14} className="inline-block mr-1" /> {m.genres}</p>
                   <p className="text-sm md:text-md font-medium"><Calendar size={14} className="inline-block mr-1" /> {m.year}</p>
@@ -270,24 +295,25 @@ export default function Home({ theme, darkMode, setDarkMode }) {
               </motion.div>
             ))}
           </motion.div>
-        ) : (
+        ) :
           !loading && (
             <motion.div
-              className={`mt-8 p-4 md:p-6 rounded-2xl border text-center`} // Adjusted padding
+              className="card text-center mt-8 glass"
               style={{
-                backgroundColor: theme.secondary,
-                color: 'white',
-                borderColor: theme.secondary,
+                backgroundColor: theme.secondary + '80',
+                color: theme.text,
+                borderColor: theme.border,
+                backdropFilter: 'blur(10px)',
               }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
             >
-              <p className="text-sm md:text-md text-center" style={{ color: 'white' }}>No recommendations found. Try adjusting your search criteria.</p>
+              <p className="text-sm md:text-md" style={{ color: theme.text }}>No recommendations found. Try adjusting your search criteria.</p>
             </motion.div>
           )
-        )}
+        }
       </AnimatePresence>
     </motion.div>
   );
@@ -298,14 +324,19 @@ const Dropdown = ({ label, value, options, onSelect, showDropdown, toggleDropdow
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className={`w-full p-3 md:p-4 rounded-xl flex items-center justify-between transition-all duration-300 border focus:outline-none focus:ring-2 focus:ring-${theme.accent} shadow-sm`}
-        style={{ backgroundColor: theme.secondary, color: 'white', borderColor: theme.secondary }}
+        className="input w-full flex items-center justify-between glow-border"
+        style={{
+          backgroundColor: theme.secondary + '80',
+          color: theme.text,
+          borderColor: theme.border,
+          backdropFilter: 'blur(10px)',
+        }}
       >
-        <div className="flex items-center" style={{ color: 'white' }}>
+        <div className="flex items-center">
           {icon && <span className="mr-2">{icon}</span>}
           {value || label}
         </div>
-        <ChevronDown size={20} style={{ color: 'white' }} />
+        <ChevronDown size={20} style={{ color: theme.text }} />
       </button>
       <AnimatePresence>
         {showDropdown && (
@@ -315,15 +346,20 @@ const Dropdown = ({ label, value, options, onSelect, showDropdown, toggleDropdow
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className={`absolute z-20 w-full mt-2 rounded-xl shadow-lg overflow-y-auto max-h-48 border`}
-            style={{ backgroundColor: theme.secondary, color: 'white', borderColor: theme.secondary }}
+            className="absolute z-20 w-full mt-2 rounded-xl shadow-vercel dark:shadow-vercel-dark overflow-y-auto max-h-48 border glass"
+            style={{ 
+              backgroundColor: theme.secondary + '80',
+              color: theme.text,
+              borderColor: theme.border,
+              backdropFilter: 'blur(10px)',
+            }}
           >
             {options.map((option) => (
               <button
                 key={option}
                 onClick={() => onSelect(option)}
-                className={`w-full p-3 text-left transition-all hover:bg-${theme.accent}10`}
-                style={{ color: 'white' }}
+                className="w-full p-3 text-left hover-effect hover:bg-hover glow-border"
+                style={{ color: theme.text }}
               >
                 {option}
               </button>

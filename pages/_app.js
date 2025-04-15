@@ -7,17 +7,20 @@ function MyApp({ Component, pageProps }) {
   const [darkMode, setDarkMode] = useState(false);
   const themeColors = {
     light: {
-      
-      background: '#727D73',  
-      text: '#F0F0D7',        
-      accent: '#D0DDD0',      
-      secondary: '#AAB99A',  
+      background: '#ffffff',
+      text: '#000000',
+      accent: '#0070f3',
+      secondary: '#fafafa',
+      border: '#eaeaea',
+      hover: '#f5f5f5'
     },
     dark: {
-      background: '#A27B5C',
-      text: '#DCD7C9',
-      accent: '#2C3930',
-      secondary: '#3F4F44',
+      background: '#111111',
+      text: '#ffffff',
+      accent: '#0070f3',
+      secondary: '#1a1a1a',
+      border: '#333333',
+      hover: '#2a2a2a'
     },
   };
   const currentTheme = darkMode ? themeColors.dark : themeColors.light;
