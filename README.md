@@ -2,9 +2,13 @@
 
 ReelFeel is a modern web application that helps users discover movies based on their mood and preferences. Built with Next.js and featuring a beautiful glass-morphism design, it provides an intuitive interface for finding the perfect movie for any occasion.
 
+![image](https://github.com/user-attachments/assets/9cfddd74-530c-46bb-9f26-f0ace95bdab8)
+
+![image](https://github.com/user-attachments/assets/2ff9243c-6e3c-4435-99a1-fd335187fbc2)
+
 ## Features
 
-- **Mood-Based Recommendations**: Describe your current mood and get personalized movie suggestions
+- **Mood-Based Recommendations**: Describe your current mood or movie and get personalized movie suggestions
 - **Advanced Filtering Options**:
   - Year selection (1950 to present)
   - Genre filtering (Action, Comedy, Drama, Sci-Fi, Thriller, Romance, Horror)
